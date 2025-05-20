@@ -20,6 +20,10 @@ public class Grade {
     @NonNull
     private int grade;
 
+    @ManyToOne
+    @JoinColumn(name = "course_code")
+    private Course course;
+
     @NonNull
     @Column(name = "student_id")
     private int studentId;
