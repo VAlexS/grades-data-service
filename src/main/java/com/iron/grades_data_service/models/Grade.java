@@ -18,6 +18,9 @@ public class Grade {
     private int id;
 
     @NonNull
+    private int grade;
+
+    @NonNull
     @Column(name = "student_id")
     private int studentId;
 }
