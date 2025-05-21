@@ -1,5 +1,6 @@
 package com.iron.grades_data_service.controller;
 
+import com.iron.grades_data_service.dto.GradeResponseDTO;
 import com.iron.grades_data_service.models.Grade;
 import com.iron.grades_data_service.services.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class GradeController {
     private GradeService gradeService;
 
     @GetMapping
-    public List<Grade> getAllGrades(){
+    public List<GradeResponseDTO> getAllGrades(){
         return gradeService.getAllGrades();
     }
 
