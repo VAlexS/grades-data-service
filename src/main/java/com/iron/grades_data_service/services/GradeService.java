@@ -25,11 +25,9 @@ public class GradeService {
         List<Grade> grades = gradeRepository.findAll();
 
         return grades.stream().map(grade -> {
-            // Obtener el estudiante desde student-info-service
             StudentDTO student = restTemplate.getForObject(
                     "http://student-info-service/api/student/" + grade.getStudentId(), StudentDTO.class);
 
-            // Transformar Grade en GradeResponseDTO
             return new GradeResponseDTO(grade, student);
         }).collect(Collectors.toList());
     }
