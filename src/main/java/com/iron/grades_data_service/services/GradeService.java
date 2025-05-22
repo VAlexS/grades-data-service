@@ -1,5 +1,6 @@
 package com.iron.grades_data_service.services;
 
+import com.iron.grades_data_service.clients.UserFeignClient;
 import com.iron.grades_data_service.dto.GradeResponseDTO;
 import com.iron.grades_data_service.dto.StudentDTO;
 import com.iron.grades_data_service.models.Grade;
@@ -20,13 +21,16 @@ public class GradeService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private UserFeignClient userFeignClient;
+
 
     public List<GradeResponseDTO> getAllGrades(){
         List<Grade> grades = gradeRepository.findAll();
 
         return grades.stream().map(grade -> {
-            StudentDTO student = restTemplate.getForObject(
-                    "http://student-info-service/api/student/" + grade.getStudentId(), StudentDTO.class);
+
+            StudentDTO student = userFeignClient.getStudentById(grade.getStudentId());
 
             return new GradeResponseDTO(grade, student);
         }).collect(Collectors.toList());
